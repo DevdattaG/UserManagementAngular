@@ -5,45 +5,48 @@
 
     <div class="form">
       <mat-form-field color="accent">
-        <input matInput #input class="form-control" placeholder="Id" [(ngModel)]="user.id" name="id" required>
+        <input matInput #input class="form-control" placeholder="Id" [(ngModel)]="user.id" name="id" min="1" max="1000"
+          type="number" required>
         <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
       </mat-form-field>
     </div>
 
-    <!--Textarea for demo purposes-->
     <div class="form">
       <mat-form-field color="accent">
         <textarea matInput #input class="form-control" placeholder="First Name" [(ngModel)]="user.firstName"
-          name="firstName" required></textarea>
+          name="firstName" minlength="2" maxlength="10" required></textarea>
         <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
       </mat-form-field>
     </div>
 
-    <!--Contains mat-hint for characters count and has maxLengt set-->
     <div class="form">
       <mat-form-field color="accent">
         <input matInput #inputstate class="form-control" placeholder="Last Name" [(ngModel)]="user.lastName"
-          name="lastName" maxlength="10" required>
+          name="lastName" minlength="2" maxlength="20" required>
         <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-        <mat-hint align="end">{{inputstate.value?.length || 0}}/10</mat-hint>
       </mat-form-field>
     </div>
 
     <div class="form">
       <mat-form-field color="accent">
-        <input matInput placeholder="Username" [(ngModel)]="user.username" name="username">
+        <input matInput placeholder="Username" [(ngModel)]="user.username" name="username" minlength="2" maxlength="20"
+          appForbiddenName="admin" required>
+        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
       </mat-form-field>
     </div>
 
     <div class="form">
       <mat-form-field color="accent">
-        <input matInput placeholder="City" [(ngModel)]="user.city" name="city">
+        <input matInput placeholder="City" [(ngModel)]="user.city" name="city" minlength="2" maxlength="20" required>
+        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
       </mat-form-field>
     </div>
 
     <div class="form">
       <mat-form-field color="accent">
-        <input matInput placeholder="Department" [(ngModel)]="user.department" name="department">
+        <input matInput placeholder="Department" [(ngModel)]="user.department" name="department" minlength="2"
+          maxlength="20" required>
+        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
       </mat-form-field>
     </div>
 

@@ -17,7 +17,6 @@ export class AddUserDialogComponent {
 
   formControl = new FormControl('', [
     Validators.required
-    // Validators.email,
   ]);
 
   getErrorMessage() {
@@ -27,7 +26,6 @@ export class AddUserDialogComponent {
   }
 
   submit() {
-    // emppty stuff
   }
 
   onNoClick(): void {

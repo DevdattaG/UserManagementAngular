@@ -19,4 +19,8 @@ export class DeleteUserDialogComponent {
   confirmDelete(): void {
     this.userDataService.deleteUser(this.user.id);
   }
+
+  getUserFullName(): string {
+    return `${this.user.firstName} ${this.user.lastName}`;
+  }
 }
