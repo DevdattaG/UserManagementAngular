@@ -10,6 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
+import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { UserDataService } from './services/userData.service';
 import { AddUserDialogComponent } from './forms/add/add.user.dialog.component';
@@ -21,6 +22,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { UserListComponent } from './components/user-list/user-list.component';
 import { InfoComponent } from './components/info/info.component';
+import { HomeComponent } from './components/home/home.component';
 
 
 @NgModule({
@@ -32,7 +34,8 @@ import { InfoComponent } from './components/info/info.component';
     HeaderComponent,
     FooterComponent,
     UserListComponent,
-    InfoComponent
+    InfoComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -46,6 +49,7 @@ import { InfoComponent } from './components/info/info.component';
     MatIconModule,
     MatSortModule,
     MatTableModule,
+    MatCardModule,
     MatToolbarModule,
     MatPaginatorModule,
     ReactiveFormsModule
