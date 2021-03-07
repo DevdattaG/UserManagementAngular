@@ -1,6 +1,10 @@
 <header>
     <mat-toolbar color="primary">
-        <img src="../../../assets/logo.png" alt="logo" height="125" width="125" />
-        <span>Assignment</span>
+        <a mat-button routerLink="/"><img src="../../../assets/logo.png" alt="logo" height="125" width="125" /></a>
+        <span class="spacer"></span>
+        <div fxShow="true" fxHide.lt-md="true">
+            <a mat-button routerLink="/how-it-works">How it works?</a>
+            <a mat-button routerLink="/user-list">User list</a>
+        </div>
     </mat-toolbar>
 </header>
