@@ -1,8 +1,8 @@
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import {Component, Inject} from '@angular/core';
-import {UserDataService} from '../../services/userData.service';
-import {FormControl, Validators} from '@angular/forms';
-import {User} from '../../models/user';
+import { Component, Inject } from '@angular/core';
+import { UserDataService } from '../../services/userData.service';
+import { FormControl, Validators } from '@angular/forms';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-add-user.dialog',
@@ -12,8 +12,8 @@ import {User} from '../../models/user';
 
 export class AddUserDialogComponent {
   constructor(public dialogRef: MatDialogRef<AddUserDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public user: User,
-              public userDataService: UserDataService) { }
+    @Inject(MAT_DIALOG_DATA) public user: User,
+    public userDataService: UserDataService) { }
 
   formControl = new FormControl('', [
     Validators.required
@@ -27,7 +27,7 @@ export class AddUserDialogComponent {
   }
 
   submit() {
-  // emppty stuff
+    // emppty stuff
   }
 
   onNoClick(): void {

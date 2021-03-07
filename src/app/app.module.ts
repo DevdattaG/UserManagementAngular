@@ -1,9 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
-
 import { AppComponent } from './app.component';
-import {HttpClientModule} from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
@@ -12,20 +11,20 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import {DataService} from './services/data.service';
-import {AddDialogComponent} from './dialogs/add/add.dialog.component';
-import {EditDialogComponent} from './dialogs/edit/edit.dialog.component';
-import {DeleteDialogComponent} from './dialogs/delete/delete.dialog.component';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { UserDataService } from './services/userData.service';
+import { AddUserDialogComponent } from './forms/add/add.user.dialog.component';
+import { EditUserDialogComponent } from './forms/edit/edit.user.dialog.component';
+import { DeleteUserDialogComponent } from './forms/delete/delete.user.dialog.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    AddDialogComponent,
-    EditDialogComponent,
-    DeleteDialogComponent
+    AddUserDialogComponent,
+    EditUserDialogComponent,
+    DeleteUserDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -44,14 +43,14 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     ReactiveFormsModule
   ],
   entryComponents: [
-    AddDialogComponent,
-    EditDialogComponent,
-    DeleteDialogComponent
+    AddUserDialogComponent,
+    EditUserDialogComponent,
+    DeleteUserDialogComponent
   ],
   providers: [
-    DataService
+    UserDataService
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
 
+export class AppModule { }

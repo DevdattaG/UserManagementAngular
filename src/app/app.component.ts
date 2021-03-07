@@ -1,16 +1,16 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {DataService} from './services/data.service';
-import {HttpClient} from '@angular/common/http';
-import {MatDialog} from '@angular/material/dialog';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatSort} from '@angular/material/sort';
-import {Issue} from './models/issue';
-import {DataSource} from '@angular/cdk/collections';
-import {AddDialogComponent} from './dialogs/add/add.dialog.component';
-import {EditDialogComponent} from './dialogs/edit/edit.dialog.component';
-import {DeleteDialogComponent} from './dialogs/delete/delete.dialog.component';
-import {BehaviorSubject, fromEvent, merge, Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { UserDataService } from './services/userData.service';
+import { HttpClient } from '@angular/common/http';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { User } from './models/user';
+import { DataSource } from '@angular/cdk/collections';
+import { AddUserDialogComponent } from './forms/add/add.user.dialog.component';
+import { EditUserDialogComponent } from './forms/edit/edit.user.dialog.component';
+import { DeleteUserDialogComponent } from './forms/delete/delete.user.dialog.component';
+import { BehaviorSubject, fromEvent, merge, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -20,19 +20,19 @@ import {map} from 'rxjs/operators';
 
 export class AppComponent implements OnInit {
   title = 'assignment-app';
-  displayedColumns = ['id', 'title', 'state', 'url', 'created_at', 'updated_at', 'actions'];
-  exampleDatabase: DataService | null;
+  displayedColumns = ['id', 'firstName', 'lastName', 'username', 'city', 'department', 'actions'];
+  exampleDatabase: UserDataService | null;
   dataSource: ExampleDataSource | null;
   index: number;
   id: number;
 
   constructor(public httpClient: HttpClient,
-              public dialog: MatDialog,
-              public dataService: DataService) {}
+    public dialog: MatDialog,
+    public userDataService: UserDataService) { }
 
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
-  @ViewChild('filter',  {static: true}) filter: ElementRef;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild('filter', { static: true }) filter: ElementRef;
 
   ngOnInit() {
     this.loadData();
@@ -43,27 +43,27 @@ export class AppComponent implements OnInit {
   }
 
   addNew() {
-    const dialogRef = this.dialog.open(AddDialogComponent, {
-      data: {issue: Issue }
+    const dialogRef = this.dialog.open(AddUserDialogComponent, {
+      data: { user: User }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === 1) {
         // After dialog is closed we're doing frontend updates
         // For add we're just pushing a new row inside DataService
-        this.exampleDatabase.dataChange.value.push(this.dataService.getDialogData());
+        this.exampleDatabase.dataChange.value.push(this.userDataService.getDialogData());
         this.refreshTable();
       }
     });
   }
 
-  startEdit(i: number, id: number, title: string, state: string, url: string, created_at: string, updated_at: string) {
+  startEdit(i: number, id: number, firstName: string, lastName: string, username: string, city: string, department: string) {
     this.id = id;
     // index row is used just for debugging proposes and can be removed
     this.index = i;
     console.log(this.index);
-    const dialogRef = this.dialog.open(EditDialogComponent, {
-      data: {id: id, title: title, state: state, url: url, created_at: created_at, updated_at: updated_at}
+    const dialogRef = this.dialog.open(EditUserDialogComponent, {
+      data: { id: id, firstName: firstName, lastName: lastName, username: username, city: city, department: department }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -71,18 +71,18 @@ export class AppComponent implements OnInit {
         // When using an edit things are little different, firstly we find record inside DataService by id
         const foundIndex = this.exampleDatabase.dataChange.value.findIndex(x => x.id === this.id);
         // Then you update that record using data from dialogData (values you enetered)
-        this.exampleDatabase.dataChange.value[foundIndex] = this.dataService.getDialogData();
+        this.exampleDatabase.dataChange.value[foundIndex] = this.userDataService.getDialogData();
         // And lastly refresh table
         this.refreshTable();
       }
     });
   }
 
-  deleteItem(i: number, id: number, title: string, state: string, url: string) {
+  deleteItem(i: number, id: number, firstName: string, lastName: string, username: string, city: string, department: string) {
     this.index = i;
     this.id = id;
-    const dialogRef = this.dialog.open(DeleteDialogComponent, {
-      data: {id: id, title: title, state: state, url: url}
+    const dialogRef = this.dialog.open(DeleteUserDialogComponent, {
+      data: { id: id, firstName: firstName, lastName: lastName, username: username, city: city, department: department }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -103,27 +103,8 @@ export class AppComponent implements OnInit {
     this.paginator._changePageSize(this.paginator.pageSize);
   }
 
-
-  /*   // If you don't need a filter or a pagination this can be simplified, you just use code from else block
-    // OLD METHOD:
-    // if there's a paginator active we're using it for refresh
-    if (this.dataSource._paginator.hasNextPage()) {
-      this.dataSource._paginator.nextPage();
-      this.dataSource._paginator.previousPage();
-      // in case we're on last page this if will tick
-    } else if (this.dataSource._paginator.hasPreviousPage()) {
-      this.dataSource._paginator.previousPage();
-      this.dataSource._paginator.nextPage();
-      // in all other cases including active filter we do it like this
-    } else {
-      this.dataSource.filter = '';
-      this.dataSource.filter = this.filter.nativeElement.value;
-    }*/
-
-
-
   public loadData() {
-    this.exampleDatabase = new DataService(this.httpClient);
+    this.exampleDatabase = new UserDataService(this.httpClient);
     this.dataSource = new ExampleDataSource(this.exampleDatabase, this.paginator, this.sort);
     fromEvent(this.filter.nativeElement, 'keyup')
       // .debounceTime(150)
@@ -137,7 +118,7 @@ export class AppComponent implements OnInit {
   }
 }
 
-export class ExampleDataSource extends DataSource<Issue> {
+export class ExampleDataSource extends DataSource<User> {
   _filterChange = new BehaviorSubject('');
 
   get filter(): string {
@@ -148,19 +129,19 @@ export class ExampleDataSource extends DataSource<Issue> {
     this._filterChange.next(filter);
   }
 
-  filteredData: Issue[] = [];
-  renderedData: Issue[] = [];
+  filteredData: User[] = [];
+  renderedData: User[] = [];
 
-  constructor(public _exampleDatabase: DataService,
-              public _paginator: MatPaginator,
-              public _sort: MatSort) {
+  constructor(public _exampleDatabase: UserDataService,
+    public _paginator: MatPaginator,
+    public _sort: MatSort) {
     super();
     // Reset to the first page when the user changes the filter.
     this._filterChange.subscribe(() => this._paginator.pageIndex = 0);
   }
 
   /** Connect function called by the table to retrieve one stream containing the data to render. */
-  connect(): Observable<Issue[]> {
+  connect(): Observable<User[]> {
     // Listen for any changes in the base data, sorting, filtering, or pagination
     const displayDataChanges = [
       this._exampleDatabase.dataChange,
@@ -169,32 +150,32 @@ export class ExampleDataSource extends DataSource<Issue> {
       this._paginator.page
     ];
 
-    this._exampleDatabase.getAllIssues();
+    this._exampleDatabase.getAllUsers();
 
 
-    return merge(...displayDataChanges).pipe(map( () => {
-        // Filter data
-        this.filteredData = this._exampleDatabase.data.slice().filter((issue: Issue) => {
-          const searchStr = (issue.id + issue.title + issue.url + issue.created_at).toLowerCase();
-          return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
-        });
+    return merge(...displayDataChanges).pipe(map(() => {
+      // Filter data
+      this.filteredData = this._exampleDatabase.data.slice().filter((user: User) => {
+        const searchStr = (user.id + user.firstName + user.lastName + user.username + user.city + user.department).toLowerCase();
+        return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
+      });
 
-        // Sort filtered data
-        const sortedData = this.sortData(this.filteredData.slice());
+      // Sort filtered data
+      const sortedData = this.sortData(this.filteredData.slice());
 
-        // Grab the page's slice of the filtered sorted data.
-        const startIndex = this._paginator.pageIndex * this._paginator.pageSize;
-        this.renderedData = sortedData.splice(startIndex, this._paginator.pageSize);
-        return this.renderedData;
-      }
+      // Grab the page's slice of the filtered sorted data.
+      const startIndex = this._paginator.pageIndex * this._paginator.pageSize;
+      this.renderedData = sortedData.splice(startIndex, this._paginator.pageSize);
+      return this.renderedData;
+    }
     ));
   }
 
-  disconnect() {}
+  disconnect() { }
 
 
   /** Returns a sorted copy of the database data. */
-  sortData(data: Issue[]): Issue[] {
+  sortData(data: User[]): User[] {
     if (!this._sort.active || this._sort.direction === '') {
       return data;
     }
@@ -205,11 +186,11 @@ export class ExampleDataSource extends DataSource<Issue> {
 
       switch (this._sort.active) {
         case 'id': [propertyA, propertyB] = [a.id, b.id]; break;
-        case 'title': [propertyA, propertyB] = [a.title, b.title]; break;
-        case 'state': [propertyA, propertyB] = [a.state, b.state]; break;
-        case 'url': [propertyA, propertyB] = [a.url, b.url]; break;
-        case 'created_at': [propertyA, propertyB] = [a.created_at, b.created_at]; break;
-        case 'updated_at': [propertyA, propertyB] = [a.updated_at, b.updated_at]; break;
+        case 'firstName': [propertyA, propertyB] = [a.firstName, b.firstName]; break;
+        case 'lastName': [propertyA, propertyB] = [a.lastName, b.lastName]; break;
+        case 'username': [propertyA, propertyB] = [a.username, b.username]; break;
+        case 'city': [propertyA, propertyB] = [a.city, b.city]; break;
+        case 'department': [propertyA, propertyB] = [a.department, b.department]; break;
       }
 
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;

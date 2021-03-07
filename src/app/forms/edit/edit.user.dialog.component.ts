@@ -1,7 +1,7 @@
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import {Component, Inject} from '@angular/core';
-import {UserDataService} from '../../services/userData.service';
-import {FormControl, Validators} from '@angular/forms';
+import { Component, Inject } from '@angular/core';
+import { UserDataService } from '../../services/userData.service';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-edit-user.dialog',
@@ -11,7 +11,7 @@ import {FormControl, Validators} from '@angular/forms';
 export class EditUserDialogComponent {
 
   constructor(public dialogRef: MatDialogRef<EditUserDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public user: any, public userDataService: UserDataService) { }
+    @Inject(MAT_DIALOG_DATA) public user: any, public userDataService: UserDataService) { }
 
   formControl = new FormControl('', [
     Validators.required
