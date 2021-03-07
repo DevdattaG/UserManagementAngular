@@ -1,14 +1,5 @@
-<mat-toolbar color="primary">
-  <span>Users</span>
-  <span class="spacer"></span>
-  Reload data:
-  <button mat-icon-button (click)="refresh()">
-    <mat-icon>refresh</mat-icon>
-  </button>
-</mat-toolbar>
-
+<app-header></app-header>
 <div class="container mat-elevation-z8">
-
   <div class="form">
     <mat-form-field floatPlaceholder="never" color="accent">
       <input matInput #filter placeholder="Filter users">
@@ -80,3 +71,4 @@
     [pageSizeOptions]="[5, 10, 25, 100]">
   </mat-paginator>
 </div>
+<app-footer></app-footer>

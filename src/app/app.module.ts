@@ -17,6 +17,10 @@ import { EditUserDialogComponent } from './forms/edit/edit.user.dialog.component
 import { DeleteUserDialogComponent } from './forms/delete/delete.user.dialog.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { UserListComponent } from './components/user-list/user-list.component';
+import { InfoComponent } from './components/info/info.component';
 
 
 @NgModule({
@@ -24,7 +28,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AppComponent,
     AddUserDialogComponent,
     EditUserDialogComponent,
-    DeleteUserDialogComponent
+    DeleteUserDialogComponent,
+    HeaderComponent,
+    FooterComponent,
+    UserListComponent,
+    InfoComponent
   ],
   imports: [
     BrowserModule,
