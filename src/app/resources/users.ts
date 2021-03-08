@@ -1,4 +1,4 @@
-[
+const userData = [
 	{
 		"id": 1,
 		"firstName": "Sachin",
@@ -56,3 +56,5 @@
 		"department": "IT"
 	}
 ]
+
+export default userData;

@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { User } from '../models/user';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import userData from '../resources/users';
 
 @Injectable()
 export class UserDataService {
-  private readonly API_URL = 'http://demo3996660.mockable.io/';
+  private readonly API_URL = 'https://demo3996660.mockable.io/';
 
   dataChange: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([]);
   dialogData: any;
@@ -27,6 +28,7 @@ export class UserDataService {
       (error: HttpErrorResponse) => {
         console.log(error.name + ' ' + error.message);
       });
+    //this.dataChange.next(userData);
   }
 
   addUser(user: User): void {
